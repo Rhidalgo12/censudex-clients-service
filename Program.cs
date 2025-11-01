@@ -2,6 +2,7 @@
 
 using censudex.src.data;
 using censudex.src.models;
+using censudex.src.Services;
 using dotenv.net;
 using dotenv.net.Utilities;
 using Microsoft.AspNetCore.Identity;
@@ -24,6 +25,8 @@ builder.Services.AddDbContext<DataContext>(options =>
         )
     );
 });
+
+builder.Services.AddScoped<IPasswordHasher<AppUser>, BCryptPasswordHasher<AppUser>>();
 builder.WebHost.ConfigureKestrel(options =>
 {
     var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
