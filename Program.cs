@@ -3,6 +3,7 @@
 using censudex.src.data;
 using censudex.src.models;
 using censudex.src.Services;
+using Censudex.Services;
 using dotenv.net;
 using dotenv.net.Utilities;
 using Microsoft.AspNetCore.Identity;
@@ -59,7 +60,7 @@ using (var scope = app.Services.CreateScope())
 app.UseGrpcWeb();
 
 // Configure the HTTP request pipeline.
-//app.MapGrpcService<GreeterService>();
-//app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
+app.MapGrpcService<UserService>();
+app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
 app.Run();
