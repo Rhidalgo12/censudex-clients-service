@@ -64,7 +64,7 @@ namespace Censudex.Services
 
         public override Task<UserProto.CreateUserResponse> CreateUser(UserProto.CreateUserRequest request, ServerCallContext context)
         {
-            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
+            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password) || string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(request.Lastnames) || string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Birthdate) || string.IsNullOrEmpty(request.Phone) || string.IsNullOrEmpty(request.Address))
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "Some required fields are missing."));
             }
@@ -164,7 +164,7 @@ namespace Censudex.Services
 
         public override async Task<UserProto.UpdateUserResponse> UpdateUser(UserProto.UpdateUserRequest request, ServerCallContext context)
         {
-            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Id))
+            if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Id) || string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(request.Lastnames) || string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Birthdate) || string.IsNullOrEmpty(request.Phone) || string.IsNullOrEmpty(request.Address) || string.IsNullOrEmpty(request.Password))
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "Some required fields are missing."));
             }
