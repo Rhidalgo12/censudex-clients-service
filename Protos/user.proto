@@ -75,10 +75,21 @@ message DeleteUserResponse{
     string message = 1;
 }
 
+message LoginRequest{
+    string email_or_username = 1;
+    string password = 2;
+
+}
+message LoginResponse{
+    string id = 1;
+    string role = 2;
+}
+
 service UserService{
     rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
     rpc GetUser(GetUserRequest) returns (GetUserResponse);
     rpc GetUserById(GetUserIdRequest) returns (GetUserIdResponse);
     rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
     rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+    rpc LoginUser(LoginRequest) returns (LoginResponse);
 }

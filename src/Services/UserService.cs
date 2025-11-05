@@ -1,6 +1,7 @@
 using censudex.src.models;
 using Grpc.Core;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.Data;
 using UserProto;
 
 namespace Censudex.Services
@@ -176,8 +177,8 @@ namespace Censudex.Services
             if (!DateOnly.TryParse(request.Birthdate, out var dateOfBirth))
             {
                 throw new RpcException(new Status(StatusCode.InvalidArgument, "Birthdate is not a valid date."));
-            } 
-            
+            }
+
             var phone = request.Phone;
             if (!System.Text.RegularExpressions.Regex.IsMatch(phone, @"^\+569\d{8}$"))
             {
@@ -223,7 +224,26 @@ namespace Censudex.Services
                 return new UserProto.UpdateUserResponse { Message = "User updated successfully." };
             }
             throw new RpcException(new Status(StatusCode.Internal, "Failed to update user: " + string.Join(", ", result.Errors.Select(e => e.Description))));
-            
+
+        }
+
+
+        public override async Task<UserProto.LoginResponse> LoginUser(UserProto.LoginRequest request, ServerCallContext context)
+        {
+            var result = new UserProto.LoginResponse();
+            var user = _userManager.Users.FirstOrDefault(u => u.Email == request.EmailOrUsername || u.UserName == request.EmailOrUsername);
+            if (user == null)
+            {
+                throw new RpcException(new Status(StatusCode.NotFound, "User not found."));
+            }
+            var passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
+            if (!passwordValid)
+            {
+                throw new RpcException(new Status(StatusCode.Unauthenticated, "Invalid password."));
+            }
+            result.Id = user.Id.ToString();
+            result.Role = (await _userManager.GetRolesAsync(user)).FirstOrDefault() ?? "User";
+            return result;
         }
 
         

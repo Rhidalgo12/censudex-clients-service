@@ -65,6 +65,10 @@ namespace UserProto {
     static readonly grpc::Marshaller<global::UserProto.DeleteUserRequest> __Marshaller_user_DeleteUserRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserProto.DeleteUserRequest.Parser));
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Marshaller<global::UserProto.DeleteUserResponse> __Marshaller_user_DeleteUserResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserProto.DeleteUserResponse.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::UserProto.LoginRequest> __Marshaller_user_LoginRequest = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserProto.LoginRequest.Parser));
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Marshaller<global::UserProto.LoginResponse> __Marshaller_user_LoginResponse = grpc::Marshallers.Create(__Helper_SerializeMessage, context => __Helper_DeserializeMessage(context, global::UserProto.LoginResponse.Parser));
 
     [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
     static readonly grpc::Method<global::UserProto.CreateUserRequest, global::UserProto.CreateUserResponse> __Method_CreateUser = new grpc::Method<global::UserProto.CreateUserRequest, global::UserProto.CreateUserResponse>(
@@ -106,6 +110,14 @@ namespace UserProto {
         __Marshaller_user_DeleteUserRequest,
         __Marshaller_user_DeleteUserResponse);
 
+    [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+    static readonly grpc::Method<global::UserProto.LoginRequest, global::UserProto.LoginResponse> __Method_LoginUser = new grpc::Method<global::UserProto.LoginRequest, global::UserProto.LoginResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "LoginUser",
+        __Marshaller_user_LoginRequest,
+        __Marshaller_user_LoginResponse);
+
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
     {
@@ -146,6 +158,12 @@ namespace UserProto {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
+      [global::System.CodeDom.Compiler.GeneratedCode("grpc_csharp_plugin", null)]
+      public virtual global::System.Threading.Tasks.Task<global::UserProto.LoginResponse> LoginUser(global::UserProto.LoginRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
     }
 
     /// <summary>Creates service definition that can be registered with a server</summary>
@@ -158,7 +176,8 @@ namespace UserProto {
           .AddMethod(__Method_GetUser, serviceImpl.GetUser)
           .AddMethod(__Method_GetUserById, serviceImpl.GetUserById)
           .AddMethod(__Method_UpdateUser, serviceImpl.UpdateUser)
-          .AddMethod(__Method_DeleteUser, serviceImpl.DeleteUser).Build();
+          .AddMethod(__Method_DeleteUser, serviceImpl.DeleteUser)
+          .AddMethod(__Method_LoginUser, serviceImpl.LoginUser).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the service binding logic.
@@ -173,6 +192,7 @@ namespace UserProto {
       serviceBinder.AddMethod(__Method_GetUserById, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::UserProto.GetUserIdRequest, global::UserProto.GetUserIdResponse>(serviceImpl.GetUserById));
       serviceBinder.AddMethod(__Method_UpdateUser, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::UserProto.UpdateUserRequest, global::UserProto.UpdateUserResponse>(serviceImpl.UpdateUser));
       serviceBinder.AddMethod(__Method_DeleteUser, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::UserProto.DeleteUserRequest, global::UserProto.DeleteUserResponse>(serviceImpl.DeleteUser));
+      serviceBinder.AddMethod(__Method_LoginUser, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::UserProto.LoginRequest, global::UserProto.LoginResponse>(serviceImpl.LoginUser));
     }
 
   }
