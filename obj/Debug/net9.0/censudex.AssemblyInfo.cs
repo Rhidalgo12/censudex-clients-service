@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("censudex")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c9e31d5dbf4347e00997801d19d66be2845e35d7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0e6a29f291285c4ddd8fcc797e0e8e8f7b0ff1aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("censudex")]
 [assembly: System.Reflection.AssemblyTitleAttribute("censudex")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

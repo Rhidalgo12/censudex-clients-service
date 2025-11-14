@@ -26,8 +26,15 @@ builder.Services.AddDbContext<DataContext>(options =>
         )
     );
 });
-
+/// <summary>
+/// Configures the password hasher service with BCrypt implementation.
+/// </summary>
+/// <returns></returns>
 builder.Services.AddScoped<IPasswordHasher<AppUser>, BCryptPasswordHasher<AppUser>>();
+/// <summary>
+/// Configures the Kestrel web server to listen on a specified port with HTTP/2 protocol.
+/// </summary>
+/// <value></value>
 builder.WebHost.ConfigureKestrel(options =>
 {
     var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
@@ -36,7 +43,10 @@ builder.WebHost.ConfigureKestrel(options =>
         listenOptions.Protocols = HttpProtocols.Http2;
     });
 });
-
+/// <summary>
+/// Configures Identity services with password and user options.
+/// </summary>
+/// <value></value>
 builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
 {
     options.Password.RequireDigit = true;
@@ -48,7 +58,11 @@ builder.Services.AddIdentity<AppUser, IdentityRole<Guid>>(options =>
 }).AddEntityFrameworkStores<DataContext>()
   .AddDefaultTokenProviders();
 var app = builder.Build();
-
+/// <summary>
+/// Creates a scope to apply migrations and seed initial data.
+/// </summary>
+/// <param name="scope"></param>
+/// <returns></returns>
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;

@@ -9,18 +9,29 @@ using Microsoft.EntityFrameworkCore;
 
 namespace censudex.src.data
 {
+    /// <summary>
+    /// Seeds initial data into the database.
+    /// </summary>
     public class DataSeeder
     {
+        /// <summary>
+        /// Initializes the database with seed data.
+        /// </summary>
+        /// <param name="serviceProvider">The service provider to resolve dependencies.</param>
         public static async Task Initialize(IServiceProvider serviceProvider)
         {
-
+            /// <summary>
+            /// Creates a scope for resolving scoped services.
+            /// </summary>
             using var scope = serviceProvider.CreateScope();
             var services = scope.ServiceProvider;
 
             var context = services.GetRequiredService<DataContext>();
             var userManager = services.GetRequiredService<UserManager<AppUser>>();
 
-
+            /// <summary>
+            /// Seeds initial user data into the database.
+            /// </summary>
             var faker = new Faker("es");
             if (!await userManager.Users.AnyAsync())
             {

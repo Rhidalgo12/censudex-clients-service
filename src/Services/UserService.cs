@@ -6,15 +6,31 @@ using UserProto;
 
 namespace Censudex.Services
 {
+    /// <summary>
+    /// Service for managing users.
+    /// </summary>
     public class UserService : UserProto.UserService.UserServiceBase
     {
+        /// <summary>
+        /// User manager for handling user-related operations.
+        /// </summary>
         private readonly UserManager<AppUser> _userManager;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UserService"/> class.
+        /// </summary>
+        /// <param name="userManager">The user manager instance.</param>
         public UserService(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
         }
 
+        /// <summary>
+        /// Retrieves users based on the provided filters.
+        /// </summary>
+        /// <param name="request">The request containing filter criteria.</param>
+        /// <param name="context">The server call context.</param>
+        /// <returns>A response containing the filtered users.</returns>
         public override Task<UserProto.GetUserResponse> GetUser(UserProto.GetUserRequest request, ServerCallContext context)
         {
             var response = new UserProto.GetUserResponse();
@@ -62,6 +78,14 @@ namespace Censudex.Services
             }
             return Task.FromResult(response);
         }
+
+        /// <summary>
+        /// Creates a new user.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        /// <exception cref="RpcException"></exception> <summary>
 
         public override Task<UserProto.CreateUserResponse> CreateUser(UserProto.CreateUserRequest request, ServerCallContext context)
         {
@@ -119,6 +143,12 @@ namespace Censudex.Services
             throw new RpcException(new Status(StatusCode.InvalidArgument, "Failed to create user: " + string.Join(", ", result.Errors.Select(e => e.Description))));
         }
 
+        /// <summary>
+        /// Deletes a user by setting their status to inactive.
+        /// </summary>
+        /// <param name="request">The request containing the user ID to delete.</param>
+        /// <param name="context">The server call context.</param>
+        /// <returns>A response indicating the result of the delete operation.</returns>
         public override Task<UserProto.DeleteUserResponse> DeleteUser(UserProto.DeleteUserRequest request, ServerCallContext context)
         {
             var user = _userManager.FindByIdAsync(request.Id).Result;
@@ -135,6 +165,12 @@ namespace Censudex.Services
             }
             throw new RpcException(new Status(StatusCode.Internal, "Failed to delete user: " + string.Join(", ", result.Errors.Select(e => e.Description))));
         }
+        /// <summary>
+        /// Retrieves a user by their ID.
+        /// </summary>
+        /// <param name="request">The request containing the user ID.</param>
+        /// <param name="context">The server call context.</param>
+        /// <returns>A response containing the user details.</returns>
 
         public override Task<UserProto.GetUserIdResponse> GetUserById(UserProto.GetUserIdRequest request, ServerCallContext context)
         {
@@ -163,6 +199,13 @@ namespace Censudex.Services
             return Task.FromResult(response);
         }
 
+        /// <summary>
+        /// Updates an existing user's details.
+        /// </summary>
+        /// <param name="request">The request containing updated user information.</param>
+        /// <param name="context">The server call context.</param>
+        /// <returns>A response indicating the result of the update operation.</returns>
+        /// <exception cref="RpcException">Thrown when validation fails or update operation encounters an error.</exception>
         public override async Task<UserProto.UpdateUserResponse> UpdateUser(UserProto.UpdateUserRequest request, ServerCallContext context)
         {
             if (request == null || string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Id) || string.IsNullOrEmpty(request.Name) || string.IsNullOrEmpty(request.Lastnames) || string.IsNullOrEmpty(request.Username) || string.IsNullOrEmpty(request.Birthdate) || string.IsNullOrEmpty(request.Phone) || string.IsNullOrEmpty(request.Address) || string.IsNullOrEmpty(request.Password))
@@ -227,6 +270,12 @@ namespace Censudex.Services
 
         }
 
+        /// <summary>
+        /// Authenticates a user using their email or username and password.
+        /// </summary>
+        /// <param name="request">The login request containing email/username and password.</param>
+        /// <param name="context">The server call context.</param>
+        /// <returns>A response containing the user's ID and role if authentication is successful.</returns>
 
         public override async Task<UserProto.LoginResponse> LoginUser(UserProto.LoginRequest request, ServerCallContext context)
         {

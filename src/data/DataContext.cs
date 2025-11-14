@@ -10,13 +10,24 @@ using Microsoft.EntityFrameworkCore;
 
 namespace censudex.src.data
 {
+    /// <summary>
+    /// Database context for the application, including Identity support.
+    /// </summary>
     public class DataContext : IdentityDbContext<AppUser, IdentityRole<Guid>, Guid>
     {
-
+        /// <summary>
+        /// Initializes a new instance of the DataContext class.
+        /// </summary>
+        /// <param name="options">The options to be used by a DbContext.</param>
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
         }
         
+        /// <summary>
+        /// Configures the model that was discovered by convention from the entity types
+        /// exposed in DbSet properties on your derived context.
+        /// </summary>
+        /// <param name="builder"></param>
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
